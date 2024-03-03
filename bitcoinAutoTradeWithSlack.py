@@ -5,7 +5,7 @@ import requests
 
 access = "F74eqP4c6tuRUBffX6WBk2zK01Ixdr7eHx2wfT6E"
 secret = "6KX486aQJlcu4VZrOkAulao2RM4r1prxHtLt8Jvs"
-myToken = "xoxp-6733632510181-6739006893332-6729918072086-4cd834783f3be561f8ef3693729cc92a"
+myToken = "xoxp-6733632510181-6739006893332-6739016060452-3d018c2e6efddf600b4ddcbba39d857b"
 myChannel = "#bitcoinautotrade"
 
 def post_message(token, channel, text):
