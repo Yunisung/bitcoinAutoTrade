@@ -1,24 +1,29 @@
 import pyupbit
-import requests
+import telegram
+import asyncio
 
 
 access = "F74eqP4c6tuRUBffX6WBk2zK01Ixdr7eHx2wfT6E"          # 본인 값으로 변경
 secret = "6KX486aQJlcu4VZrOkAulao2RM4r1prxHtLt8Jvs"          # 본인 값으로 변경
-myToken = "xoxb-6733632510181-6759388351872-1hcuvLH1VKRtewUcUZpaPWTM"
-myChannel = "#bitcoinautotrade"
 
-def post_message(token, channel, text):
-    """슬랙 메시지 전송"""
-    response = requests.post("https://slack.com/api/chat.postMessage",
-        headers={"Authorization": "Bearer "+token},
-        data={"channel": channel,"text": text}
-    )
+async def send_message(message):
+    token = "6793842218:AAEq_mk2fPh6LWZ5WUvrmXih1hJeaOH8rkQ"
+    chat_id = 5253588138
+
+    bot = telegram.Bot(token)
+    await bot.sendMessage(chat_id, message)
 
 
 upbit = pyupbit.Upbit(access, secret)
-post_message(myToken, myChannel, "4444")
 
 
 
 print(upbit.get_balance("KRW-BTC"))     # KRW-XRP 조회
 print(upbit.get_balance("KRW"))         # 보유 현금 조회
+
+
+chat_id = 5253588138
+
+message = "보유현금 : "  + str(upbit.get_balance("KRW")) + "원"
+
+asyncio.run(send_message(message))

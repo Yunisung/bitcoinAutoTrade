@@ -2,18 +2,19 @@ import time
 import pyupbit
 import datetime
 import requests
+import telegram
+import asyncio
 
 access = "F74eqP4c6tuRUBffX6WBk2zK01Ixdr7eHx2wfT6E"
 secret = "6KX486aQJlcu4VZrOkAulao2RM4r1prxHtLt8Jvs"
-myToken = "xoxb-6733632510181-6759388351872-1hcuvLH1VKRtewUcUZpaPWTM"
-myChannel = "#bitcoinautotrade"
 
-def post_message(token, channel, text):
-    """슬랙 메시지 전송"""
-    response = requests.post("https://slack.com/api/chat.postMessage",
-        headers={"Authorization": "Bearer "+token},
-        data={"channel": channel,"text": text}
-    )
+
+async def send_message(message):
+    token = "6793842218:AAEq_mk2fPh6LWZ5WUvrmXih1hJeaOH8rkQ"
+    chat_id = 5253588138
+
+    bot = telegram.Bot(token)
+    await bot.sendMessage(chat_id, message)
 
 def get_target_price(ticker, k):
     """변동성 돌파 전략으로 매수 목표가 조회"""
@@ -52,7 +53,8 @@ def get_current_price(ticker):
 upbit = pyupbit.Upbit(access, secret)
 print("autotrade start")
 # 시작 메세지 슬랙 전송
-post_message(myToken, myChannel, "autotrade start")
+#post_message(myToken, myChannel, "autotrade start")
+asyncio.run(send_message("autotrade start"))
 
 while True:
     try:
@@ -68,14 +70,17 @@ while True:
                 krw = get_balance("KRW")
                 if krw > 5000:
                     buy_result = upbit.buy_market_order("KRW-BTC", krw*0.9995)
-                    post_message(myToken, myChannel, "BTC buy : " +str(buy_result))
+                    #post_message(myToken, myChannel, "BTC buy : " +str(buy_result))
+                    asyncio.run(send_message("BTC buy : " +str(buy_result)))
         else:
             btc = get_balance("BTC")
             if btc > 0.00008:
                 sell_result = upbit.sell_market_order("KRW-BTC", btc*0.9995)
-                post_message(myToken, myChannel, "BTC sell : " +str(sell_result))
+                #post_message(myToken, myChannel, "BTC sell : " +str(sell_result))
+                asyncio.run(send_message("BTC sell : " +str(sell_result)))
         time.sleep(1)
     except Exception as e:
         print(e)
-        post_message(myToken, myChannel, e)
+        #post_message(myToken, myChannel, e)
+        asyncio.run(send_message(e))
         time.sleep(1)
