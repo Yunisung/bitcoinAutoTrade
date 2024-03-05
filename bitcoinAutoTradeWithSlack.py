@@ -74,7 +74,7 @@ while True:
                     asyncio.run(send_message("BTC buy : " +str(buy_result)))
         else:
             btc = get_balance("BTC")
-            if btc > 0.00008:
+            if btc > 0.00006:
                 sell_result = upbit.sell_market_order("KRW-BTC", btc*0.9995)
                 #post_message(myToken, myChannel, "BTC sell : " +str(sell_result))
                 asyncio.run(send_message("BTC sell : " +str(sell_result)))
