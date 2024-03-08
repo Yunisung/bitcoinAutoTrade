@@ -14,7 +14,7 @@ async def send_message(message):
     chat_id = 5253588138
 
     bot = telegram.Bot(token)
-    await bot.sendMessage(chat_id, message)
+    await bot.sendMessage(chat_id=chat_id, text=message)
 
 def get_target_price(ticker, k):
     """변동성 돌파 전략으로 매수 목표가 조회"""
@@ -79,8 +79,13 @@ while True:
                 #post_message(myToken, myChannel, "BTC sell : " +str(sell_result))
                 asyncio.run(send_message("BTC sell : " +str(sell_result)))
         time.sleep(1)
+        
     except Exception as e:
-        print(e)
+        print("=======================")
+        print(datetime.datetime.now())
+        asyncio.run(send_message(datetime.datetime.now()))
+        print(e.__str__())
         #post_message(myToken, myChannel, e)
-        asyncio.run(send_message(e))
+        asyncio.run(send_message(e.__str__()))
+        print("=======================")
         time.sleep(1)
