@@ -63,7 +63,7 @@ while True:
         end_time = start_time + datetime.timedelta(days=1)
 
         if start_time < now < end_time - datetime.timedelta(seconds=10):
-            target_price = get_target_price("KRW-BTC", 0.7)
+            target_price = get_target_price("KRW-BTC", 0.5)
             ma15 = get_ma15("KRW-BTC")
             current_price = get_current_price("KRW-BTC")
             if target_price < current_price and ma15 < current_price:
@@ -74,7 +74,7 @@ while True:
                     asyncio.run(send_message("BTC buy : " +str(buy_result)))
         else:
             btc = get_balance("BTC")
-            if btc > 0.00006:
+            if btc > 0.00008:
                 sell_result = upbit.sell_market_order("KRW-BTC", btc*0.9995)
                 #post_message(myToken, myChannel, "BTC sell : " +str(sell_result))
                 asyncio.run(send_message("BTC sell : " +str(sell_result)))
