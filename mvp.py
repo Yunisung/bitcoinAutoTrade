@@ -35,7 +35,8 @@ def ai_trading():
     
     # 1. 업비트 차트 가져오기 (30일 일봉)
     
-    df = pyupbit.get_ohlcv("KRW-BTC", count=30, interval="day");
+    # df = pyupbit.get_ohlcv("KRW-BTC", count=30, interval="day");
+    df = pyupbit.get_ohlcv("KRW-BTC", count=240, interval="minute60");
     # print(df)
 
     # 2. AI에게 데이터 제공하고 판단 받기
