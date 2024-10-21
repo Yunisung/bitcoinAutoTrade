@@ -118,4 +118,4 @@ def ai_trading():
 while True:
     import time
     ai_trading()
-    time.sleep(3600)
+    time.sleep(3600 * 3)
